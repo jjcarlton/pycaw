@@ -2,7 +2,6 @@
 Python wrapper around the Core Audio Windows API.
 """
 from future.utils import python_2_unicode_compatible
-import psutil
 import comtypes
 from enum import Enum
 from ctypes import HRESULT, POINTER, Structure, Union, \
@@ -539,12 +538,6 @@ class AudioSession(object):
 
     @property
     def Process(self):
-        if self._process is None and self.ProcessId != 0:
-            try:
-                self._process = psutil.Process(self.ProcessId)
-            except psutil.NoSuchProcess:
-                # for some reason GetProcessId returned an non existing pid
-                return None
         return self._process
 
     @property
